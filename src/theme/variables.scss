@@ -77,3 +77,12 @@
   --ion-color-light-tint: #f5f6f9;
 
 }
+
+ion-header {
+  ion-toolbar {
+    ion-icon {
+      font-size: 25px;
+      font-weight: bold;
+    }
+  }
+}

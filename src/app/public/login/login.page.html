@@ -1,0 +1,46 @@
+<ion-content padding>
+
+
+
+  <ion-grid style="height: 100%">
+    <ion-row justify-content-center align-items-center style="height: 100%">
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+
+        <form (ngSubmit)="login()" #registerForm="ngForm">
+
+          <ion-card >
+            <ion-card-title text-center>
+              <h4>Login</h4>
+            </ion-card-title>
+            <img src="./assets/books.svg">
+            <ion-card-content>
+              <ion-item>
+                <ion-input [(ngModel)]="usuario.usuario" name="usuario" type="text" placeholder="Username" required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input [(ngModel)]="usuario.senha" name="senha" type="password" placeholder="Password" required></ion-input>
+              </ion-item>
+              <ion-button type="submit" text-capitalize expand="block" [disabled]="!registerForm.form.valid" color="primary">
+                <ion-icon slot="start" name='contact'></ion-icon>
+                Login
+              </ion-button>
+              <ion-row align-items-center>
+                <ion-col size="12" class="recovery">
+                  <ion-label class="recovery" text-capitalize expand="block" (click)="recovery()">Esqueceu sua senha?</ion-label>
+                </ion-col>
+              </ion-row>
+              <br/>
+              <ion-button text-capitalize expand="block" (click)="configurar()" color="success">
+                <ion-icon slot="start" name="settings"></ion-icon>
+                Configurar API
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+
+        </form>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Lista de Professores</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="addProfessor()" >
+        <ion-icon name="person-add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar type="text" placeholder="Pesquisa" (ionInput)="filter($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-refresher [disabled]="!refresherEnabled" slot="fixed" pullMin="180" (ionRefresh)="buscaRefresher($event)">
+    <ion-refresher-content 
+        pullingIcon="arrow-dropdown" 
+        pullingText="" 
+        refreshingSpinner="circles" 
+        refreshingText="Atualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item-divider *ngFor="let professor of professores">
+      <ion-label (click)="detalhes(professor.id)">{{professor.id}} - {{professor.nome}}</ion-label>
+      <ion-buttons slot="end" color="primary">
+          <ion-button fill="clear" (click)="editProfessor(professor.id)">
+            <ion-icon slot="icon-only" name="create"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" (click)="delProfessor(professor.id)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" (click)="detalhes(professor.id)">
+            <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+    </ion-item-divider>
+  </ion-list>
+
+  <ion-infinite-scroll [disabled]="!scrollEnabled" threshold="25%" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Carregando...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addProfessor()">
+      <ion-icon name="person-add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

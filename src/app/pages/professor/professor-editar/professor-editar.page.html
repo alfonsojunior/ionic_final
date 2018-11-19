@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ professor.nome }}</ion-title>
+      <ion-buttons slot="end">
+          <ion-button (click)="gravar()">
+            <ion-icon slot="start" name="checkmark"></ion-icon>
+          </ion-button>
+          <ion-button (click)="cancelar()" color="danger">
+            <ion-icon slot="end" name="close"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid fixed>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-avatar (click)="trocarFoto()">
+          <img #avatar src="{{avatar}}" class="foto">
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="6"></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-item-divider>
+        <ion-col size="3">
+            <ion-label>Nome:</ion-label>
+        </ion-col>
+        <ion-col size="9">
+            <ion-input type="text" placeholder="Nome" [(ngModel)]="professor.nome"></ion-input>
+        </ion-col>
+      </ion-item-divider>
+    </ion-row>
+
+    <ion-row>
+      <ion-item-divider>
+        <ion-col size="4">
+            <ion-label>Nascimento:</ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <ion-datetime displayFormat="YYYY-MM-DD" placeholder="Nascimento" [(ngModel)]="nascimento"></ion-datetime>
+        </ion-col>
+      </ion-item-divider>
+    </ion-row>
+
+    <ion-row>
+      <ion-item-divider>
+        <ion-col size="3">
+            <ion-label>Ativo</ion-label>
+        </ion-col>
+        <ion-col size="9">
+          <ion-toggle [(ngModel)]="status"></ion-toggle>
+        </ion-col>
+      </ion-item-divider>
+    </ion-row>
+
+    <ion-row>
+      <ion-item-divider>
+        <ion-col size="4">
+          <ion-label>Curriculo:</ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <ion-textarea rows="5" [(ngModel)]="professor.curriculo"></ion-textarea>
+        </ion-col>
+      </ion-item-divider>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
