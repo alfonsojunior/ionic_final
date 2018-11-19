@@ -35,12 +35,7 @@ export class ProfessorListaPage implements OnInit {
     private loadingCtrl: LoadingController
   ) { }
 
-  async ngOnInit() {
-    this.loading = await this.loadingCtrl.create({
-      message: 'Carregando...',
-      spinner: 'circles'
-    });
-    await this.loading.present();
+  ngOnInit() {
   }
 
   ionViewDidEnter() {
@@ -57,6 +52,13 @@ export class ProfessorListaPage implements OnInit {
   }
 
   async buscaAPI(evento: any) {
+
+    this.loading = await this.loadingCtrl.create({
+      message: 'Carregando...',
+      spinner: 'circles'
+    });
+    await this.loading.present();
+
     this.ultimo = 0;
     this.professores = [];
 

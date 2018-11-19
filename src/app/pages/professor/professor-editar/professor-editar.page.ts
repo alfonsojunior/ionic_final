@@ -64,58 +64,81 @@ export class ProfessorEditarPage implements OnInit {
           } else {
             this.status = false;
           }
-          this.nascimento = this.professor.nascimento;
-          const arquivo = 'foto_' + this.professor.id + '.png';
-          this.imageService.lerImagem('fotos', arquivo)
-            .then(
-              (imagem: string) => {
-                if (imagem !== '') {
+          if (this.professor.id > 0) {
+            this.nascimento = this.professor.nascimento;
+            const arquivo = 'foto_' + this.professor.id + '.png';
+            this.imageService.lerImagem('fotos', arquivo)
+              .then(
+                (imagem: string) => {
+                  if (imagem !== '') {
+                    this.avatar = imagem;
+                    this.avatarx.nativeElement.src = 'data:image/png;base64,' + imagem;
+                  } else {
+                    this.professorApiService.getFoto(this.professor.id, this.token)
+                      .then(
+                        (foto: string) => {
+                          this.avatar = foto;
+                          this.avatarx.nativeElement.src = 'data:image/png;base64,' + foto;
+                        }
+                      )
+                      .catch(
+                        async (error: Error) => {
+                          const toast = await this.toastCtrl.create({
+                            message: error.message,
+                            duration: 3000,
+                            position: 'bottom',
+                            translucent: true
+                          });
+                          await toast.present();
+                        }
+                      );
+                  }
+                }
+              )
+              .catch(
+                async (error: Error) => {
+                  this.professorApiService.getFoto(this.professor.id, this.token)
+                      .then(
+                        (foto: string) => {
+                          this.avatar = foto;
+                          this.avatarx.nativeElement.src = 'data:image/png;base64,' + foto;
+                        }
+                      )
+                      .catch(
+                        async (erro: Error) => {
+                          const toast = await this.toastCtrl.create({
+                            message: erro.message,
+                            duration: 3000,
+                            position: 'bottom',
+                            translucent: true
+                          });
+                          await toast.present();
+                        }
+                      );
+                }
+              );
+          } else {
+            this.imageService.lerImagem('fotos', 'person.png')
+              .then(
+                (imagem: string) => {
+
                   this.avatar = imagem;
                   this.avatarx.nativeElement.src = 'data:image/png;base64,' + imagem;
-                } else {
-                  this.professorApiService.getFoto(this.professor.id, this.token)
-                    .then(
-                      (foto: string) => {
-                        this.avatar = foto;
-                        this.avatarx.nativeElement.src = 'data:image/png;base64,' + foto;
-                      }
-                    )
-                    .catch(
-                      async (error: Error) => {
-                        const toast = await this.toastCtrl.create({
-                          message: error.message,
-                          duration: 3000,
-                          position: 'bottom',
-                          translucent: true
-                        });
-                        await toast.present();
-                      }
-                    );
+                  const arquivo = 'foto_' + this.professor.id + '.png';
                 }
-              }
-            )
-            .catch(
-              async (error: Error) => {
-                this.professorApiService.getFoto(this.professor.id, this.token)
-                    .then(
-                      (foto: string) => {
-                        this.avatar = foto;
-                        this.avatarx.nativeElement.src = 'data:image/png;base64,' + foto;
-                      }
-                    )
-                    .catch(
-                      async (erro: Error) => {
-                        const toast = await this.toastCtrl.create({
-                          message: erro.message,
-                          duration: 3000,
-                          position: 'bottom',
-                          translucent: true
-                        });
-                        await toast.present();
-                      }
-                    );
-              }
-            );
+              )
+              .catch(
+                async (error: Error) => {
+                  const toast = await this.toastCtrl.create({
+                    message: error.message,
+                    duration: 3000,
+                    position: 'bottom',
+                    translucent: true
+                  });
+                  await toast.present();
+                }
+              );
+          }
         }
       );
   }
